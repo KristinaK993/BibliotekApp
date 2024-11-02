@@ -1,0 +1,57 @@
+﻿{
+    "böcker": [
+        {
+            "Id": 1,
+            "Titel": "Harry Potter",
+            "Författare": "J.K Rowling",
+            "Genre": "Fantasy",
+            "Publiceringsår": 1997,
+            "Isbn": "1234",
+            "Recensioner": [ 5, 6, 10 ]
+        },
+        {
+            "Id": 2,
+            "Titel": "Pippi",
+            "Författare": "Astrid Lindgren",
+            "Genre": "Kids",
+            "Publiceringsår": 1993,
+            "Isbn": "1235",
+            "Recensioner": [ 9, 6, 4 ]
+        },
+        {
+            "Id": 1,
+            "Titel": "Forest Gump",
+            "Författare": "Winston Groom",
+            "Genre": "Humor",
+            "Publiceringsår": 1986,
+            "Isbn": "1236",
+            "Recensioner": [3, 5, 8]
+
+        }
+    ],
+    
+    
+        "författare": [
+            {
+                "Id": 1,
+                "Namn": "J.K Rowling",
+                "Land": "England",
+                "Böcker": 13 
+            },
+        
+    
+        {
+            "Id": 2,
+            "Namn": "Astrid Lindgren",
+            "Land": "Sverige",
+            "Böcker": 24 
+        },
+   
+         {
+            "Id": 3, 
+            "Namn": "Winston Groom",
+            "Land": "USA",
+            "Böcker": 4
+         }
+     ]
+  }
