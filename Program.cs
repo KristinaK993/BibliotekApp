@@ -9,7 +9,7 @@ namespace BibliotekApp
         {
             Bibliotek bibliotek = new Bibliotek();
             MinLillaDb minLillaDb = new MinLillaDb();
-            minLillaDb.Deserialize(bibliotek);
+            //minLillaDb.Deserialize(bibliotek);
 
             bool running = true;
             while (running)
@@ -81,6 +81,20 @@ namespace BibliotekApp
             Console.Write("Ange författarens namn: ");
             string författareNamn = Console.ReadLine();
 
+            Console.Write("Ange vilket land författaren kommer ifrån: ");
+            string författarLand = Console.ReadLine();
+
+            // Skapa författare objekt
+            Författare nyFörfattare = new Författare
+            {
+                Id = bibliotek.ListAllaFörfattare().Count + 1, // Generera ett nytt ID
+                Namn = författareNamn,
+                Land = författarLand
+            };
+
+            // Lägg till författaren i biblioteket
+            bibliotek.AddFörfattare(nyFörfattare);
+
             Console.Write("Ange bokens genre: ");
             string genre = Console.ReadLine();
 
@@ -93,7 +107,7 @@ namespace BibliotekApp
             Bok nyBok = new Bok
             {
                 Titel = titel,
-                Författare = författareNamn,
+                Författare = nyFörfattare,
                 Genre = genre,
                 Publiceringsår = år,
                 Isbn = isbn,

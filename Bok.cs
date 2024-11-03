@@ -6,25 +6,32 @@ namespace BibliotekApp
     {
         public int Id { get; set; }
         public string Titel { get; set; }
-        public string Författare { get; set; }
+        public Författare Författare { get; set; }
         public string Genre { get; set; }
         public int Publiceringsår { get; set; }
         public string Isbn { get; set; }
-        public List<int>Recensioner { get; set; }
+        public List<int>Recensioner { get; set; } = new List<int>();
 
-        public Bok ()
+        // Lista med heltalsbetyg som representerar recensioner från användare
+        public List<int> Reviews { get; set; } = new List<int>();
+
+        public double AverageRating => Reviews.Any() ? Reviews.Average() : 0.0;
+
+        public void AddReview(int rating)
         {
-            Recensioner = new List<int>();
+            if (rating < 1 || rating > 5)
+                throw new ArgumentOutOfRangeException("Betyg måste vara mellan 1-5 ");
+            Reviews.Add(rating);
         }
-        public double GetAverageRating()
+        // Visar detaljerad information om boken inklusive genomsnittligt betyg
+        public void DisplayBookInfo()
         {
-            if (Recensioner.Count == 0) return 0;
-            double total = 0;
-            foreach(var rating in Recensioner)
-            {
-                total += rating;
-            }
-            return total / Recensioner.Count;
+            Console.WriteLine($"Titel: {Titel}");
+            Console.WriteLine($"Författare: {Författare?.Namn ?? "Okänd"}");
+            Console.WriteLine($"Genre: {Genre}");
+            Console.WriteLine($"Publiceringsår: {Publiceringsår}");
+            Console.WriteLine($"ISBN: {Isbn}");
+            Console.WriteLine($"Genomsnittligt betyg: {AverageRating:F1} ({Reviews.Count} recensioner)");
         }
     }
 }

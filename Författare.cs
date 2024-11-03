@@ -1,4 +1,6 @@
-﻿namespace BibliotekApp
+﻿using BibliotekApp;
+
+namespace BibliotekApp
 {
     public class Författare
     {
