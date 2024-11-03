@@ -6,7 +6,7 @@ namespace BibliotekApp
     {
         public int Id { get; set; }
         public string Titel { get; set; }
-        public Författare Författare { get; set; }
+        public string Författare { get; set; }
         public string Genre { get; set; }
         public int Publiceringsår { get; set; }
         public string Isbn { get; set; }
@@ -27,7 +27,7 @@ namespace BibliotekApp
         public void DisplayBookInfo()
         {
             Console.WriteLine($"Titel: {Titel}");
-            Console.WriteLine($"Författare: {Författare?.Namn ?? "Okänd"}");
+            Console.WriteLine($"Författare: {Författare ?? "Okänd"}");
             Console.WriteLine($"Genre: {Genre}");
             Console.WriteLine($"Publiceringsår: {Publiceringsår}");
             Console.WriteLine($"ISBN: {Isbn}");

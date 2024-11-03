@@ -81,15 +81,6 @@ namespace BibliotekApp
         public List<Bok> ListAllaBöcker() => Böcker;
         public List<Författare> ListAllaFörfattare() => Författare;
 
-        //public void Serialize()
-        //{
-        //    minLillaDb.Serialize(this);
-        //}
-
-        //public void Deserialize()
-        //{
-        //    minLillaDb.Deserialize(this);
-        //}
     }
 }
  

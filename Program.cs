@@ -9,8 +9,9 @@ namespace BibliotekApp
         {
             Bibliotek bibliotek = new Bibliotek();
             MinLillaDb minLillaDb = new MinLillaDb();
-            //minLillaDb.Deserialize(bibliotek);
-
+            string dataJsonfilPath = "LibraryData.Json";
+            string allaDataSomJsonType = File.ReadAllText(dataJsonfilPath);
+          
             bool running = true;
             while (running)
             {
@@ -87,7 +88,7 @@ namespace BibliotekApp
             // Skapa författare objekt
             Författare nyFörfattare = new Författare
             {
-                Id = bibliotek.ListAllaFörfattare().Count + 1, // Generera ett nytt ID
+                Id = bibliotek.ListAllaFörfattare().Count + 1, 
                 Namn = författareNamn,
                 Land = författarLand
             };
@@ -107,7 +108,7 @@ namespace BibliotekApp
             Bok nyBok = new Bok
             {
                 Titel = titel,
-                Författare = nyFörfattare,
+                Författare = författareNamn,
                 Genre = genre,
                 Publiceringsår = år,
                 Isbn = isbn,
@@ -167,7 +168,7 @@ namespace BibliotekApp
             }
 
             // Frågar efter nya detaljer
-            Console.Write("Ange nytt namn för författaren (lämna tomt för att behålla nuvarande): ");
+            Console.Write("Ange nytt namn för författaren ------- : ");
             string nyttNamn = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(nyttNamn))
@@ -175,7 +176,7 @@ namespace BibliotekApp
                 författare.Namn = nyttNamn;
             }
 
-            Console.Write("Ange nytt land för författaren (lämna tomt för att behålla nuvarande): ");
+            Console.Write("Ange nytt land för författaren -------- : ");
             string nyttLand = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(nyttLand))

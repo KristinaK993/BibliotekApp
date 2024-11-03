@@ -35,23 +35,23 @@
             {
                 "Id": 1,
                 "Namn": "J.K Rowling",
-                "Land": "England",
-                "Böcker": 13 
+                "Land": "England"
+             
             },
         
     
         {
             "Id": 2,
             "Namn": "Astrid Lindgren",
-            "Land": "Sverige",
-            "Böcker": 24 
+            "Land": "Sverige"
+            
         },
    
          {
             "Id": 3, 
             "Namn": "Winston Groom",
-            "Land": "USA",
-            "Böcker": 4
+            "Land": "USA"
+         
          }
      ]
   }

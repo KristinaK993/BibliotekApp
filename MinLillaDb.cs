@@ -24,13 +24,13 @@ namespace BibliotekApp
         // Deserialisera data från JSON-fil till MinLillaDb
         public static MinLillaDb Deserialize(string filnamn)
         {
-            if (!File.Exists(filnamn))
+            if (!File.Exists("LibraryData.json"))
             {
                 // Om filen inte finns, returneras en ny instans 
                 return new MinLillaDb();
             }
 
-            var jsonData = File.ReadAllText(filnamn);
+            var jsonData = File.ReadAllText("LibraryData.json");
             return JsonSerializer.Deserialize<MinLillaDb>(jsonData);
         }
     }
