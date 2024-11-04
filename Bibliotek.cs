@@ -68,7 +68,9 @@ namespace BibliotekApp
             Console.WriteLine("---- Alla Böcker ----");
             foreach (var bok in Böcker)
             {
-                Console.WriteLine($"{bok.Titel} av {bok.Författare} ({bok.Publiceringsår})");
+                Console.WriteLine($"{bok.Titel}, Författare: {bok.Författare}, Genre: {bok.Genre}");
+                Console.WriteLine($"Publiceringsår: {bok.Publiceringsår}, ISBN: {bok.Isbn}");
+                Console.WriteLine($"Genomsnittligt betyg: {bok.AverageRating}");
             }
 
             Console.WriteLine("---- Alla Författare ----");
