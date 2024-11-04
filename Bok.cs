@@ -15,7 +15,7 @@ namespace BibliotekApp
         // Lista med heltalsbetyg som representerar recensioner från användare
         public List<int> Reviews { get; set; } = new List<int>();
 
-        public double AverageRating => Reviews.Any() ? Reviews.Average() : 0.0;
+        public int AverageRating => Recensioner.Any() ? (int)Math.Round(Recensioner.Average()) : 0;
 
         public void AddReview(int rating)
         {
