@@ -1,7 +1,4 @@
-﻿
-using BibliotekApp;
-
-namespace BibliotekApp
+﻿namespace BibliotekApp
 {
     internal class Program
     {
@@ -11,22 +8,11 @@ namespace BibliotekApp
             MinLillaDb minLillaDb = new MinLillaDb();
             string dataJsonfilPath = "LibraryData.Json";
             string allaDataSomJsonType = File.ReadAllText(dataJsonfilPath);
-          
+
             bool running = true;
             while (running)
             {
-                Console.Clear();
-                Console.WriteLine("---- Bibliotekshantering ----");
-                Console.WriteLine("1. Lägg till ny bok");
-                Console.WriteLine("2. Lägg till ny författare");
-                Console.WriteLine("3. Uppdatera bokdetaljer");
-                Console.WriteLine("4. Uppdatera författardetaljer");
-                Console.WriteLine("5. Ta bort bok");
-                Console.WriteLine("6. Ta bort författare");
-                Console.WriteLine("7. Lista alla böcker och författare");
-                Console.WriteLine("8. Sök och filtrera böcker");
-                Console.WriteLine("9. Avsluta och spara data");
-                Console.Write("Välj ett alternativ: ");
+                VisaHuvudMeny();
 
                 string choice = Console.ReadLine();
                 Console.Clear();
@@ -36,33 +22,33 @@ namespace BibliotekApp
                     case "1":
                         AddBok(bibliotek);
                         break;
-                        case "2":
+                    case "2":
                         AddFörfattare(bibliotek);
                         break;
-                        case "3":
+                    case "3":
                         UpdateBok(bibliotek);
                         break;
-                        case "4":
+                    case "4":
                         UpdateFörfattare(bibliotek);
                         break;
-                        case "5":
+                    case "5":
                         RemoveBok(bibliotek);
                         break;
-                        case "6":
+                    case "6":
                         RemoveFörfattare(bibliotek);
                         break;
-                        case "7":
+                    case "7":
                         ListaAlla(bibliotek);
                         break;
-                        case "8":
+                    case "8":
                         SökOchFiltreraBöcker(bibliotek);
                         break;
-                        case "9":
+                    case "9":
                         bibliotek.Serialize();
                         Console.WriteLine("Data sparat. Programmet avslutas.");
                         running = false;
                         break;
-                        default:
+                    default:
                         Console.WriteLine("Ogiltigt val, försök igen.");
                         break;
 
@@ -74,7 +60,24 @@ namespace BibliotekApp
                 }
             }
         }
-        static void AddBok (Bibliotek bibliotek)
+
+        private static void VisaHuvudMeny()
+        {
+            Console.Clear();
+            Console.WriteLine("---- Bibliotekshantering ----");
+            Console.WriteLine("1. Lägg till ny bok");
+            Console.WriteLine("2. Lägg till ny författare");
+            Console.WriteLine("3. Uppdatera bokdetaljer");
+            Console.WriteLine("4. Uppdatera författardetaljer");
+            Console.WriteLine("5. Ta bort bok");
+            Console.WriteLine("6. Ta bort författare");
+            Console.WriteLine("7. Lista alla böcker och författare");
+            Console.WriteLine("8. Sök och filtrera böcker");
+            Console.WriteLine("9. Avsluta och spara data");
+            Console.Write("Välj ett alternativ: ");
+        }
+
+        static void AddBok(Bibliotek bibliotek)
         {
             Console.WriteLine("Ange bokens titel: ");
             string titel = Console.ReadLine();
@@ -88,7 +91,7 @@ namespace BibliotekApp
             // Skapa författare objekt
             Författare nyFörfattare = new Författare
             {
-                Id = bibliotek.ListAllaFörfattare().Count + 1, 
+                Id = bibliotek.ListAllaFörfattare().Count + 1,
                 Namn = författareNamn,
                 Land = författarLand
             };
@@ -105,25 +108,35 @@ namespace BibliotekApp
             Console.Write("Ange bokens ISBN: ");
             string isbn = Console.ReadLine();
 
-            Bok nyBok = new Bok
+            Console.WriteLine("Betygsätt boken mellan 1-5");
+            int initialRating;
+            while (!int.TryParse(Console.ReadLine(), out initialRating) || initialRating < 1 || initialRating > 5)
+            {
+                Console.WriteLine("Ogiltigt betyg, angel ett tal mellan 1-5");
+            }
+
+                Bok nyBok = new Bok
             {
                 Titel = titel,
                 Författare = författareNamn,
                 Genre = genre,
                 Publiceringsår = år,
                 Isbn = isbn,
-                Recensioner = new List<int>()
+                Recensioner = new List<int> {initialRating}
             };
             bibliotek.AddBok(nyBok);
             Console.WriteLine("Boken är nu tillagd!");
 
+            //Visa det genomsnittliga betyget för boken
+            Console.WriteLine($"Genomsnittligt betyg för {nyBok.Titel} är nu: {nyBok.AverageRating: F1}");
+
 
         }
-        static void AddFörfattare (Bibliotek bibliotek)
+        static void AddFörfattare(Bibliotek bibliotek)
         {
             Console.WriteLine("Ange författarens namn: ");
             string namn = Console.ReadLine();
-            
+
             Console.WriteLine("Ange vilket land författaren kommer ifrån: ");
             string land = Console.ReadLine();
 
@@ -139,7 +152,7 @@ namespace BibliotekApp
         static void UpdateBok(Bibliotek bibliotek)
         {
             Console.WriteLine("Ange bokens Id som du vill ska uppdateras");
-            int bokId = int.Parse (Console.ReadLine());
+            int bokId = int.Parse(Console.ReadLine());
             Console.WriteLine("Ange ny titel");
             string nyTitel = Console.ReadLine();
 
@@ -198,13 +211,13 @@ namespace BibliotekApp
             if (bok == null)
             {
                 Console.WriteLine("Boken med det angivna Id:t hittades inte!");
-                return ;
+                return;
             }
             //Ta bort boken 
             bibliotek.RemoveBok(bokId);
             Console.WriteLine("Boken har tagits bort");
         }
-        static void RemoveFörfattare (Bibliotek bibliotek)
+        static void RemoveFörfattare(Bibliotek bibliotek)
         {
             Console.WriteLine("Ange Id för den författare som ska raderas: ");
             int författarId;
@@ -216,7 +229,7 @@ namespace BibliotekApp
             if (författare == null)
             {
                 Console.WriteLine("Författaren med det angivna Id:t hittades inte.");
-                return ;
+                return;
             }
             // Ta bort författaren
             bibliotek.RemoveFörfattare(författarId);
@@ -228,7 +241,7 @@ namespace BibliotekApp
             Console.WriteLine("Tryck på valfri tangent för att återgå till menyn...");
             Console.ReadKey();
         }
-        static void SökOchFiltreraBöcker (Bibliotek bibliotek)
+        static void SökOchFiltreraBöcker(Bibliotek bibliotek)
         {
             Console.WriteLine("Välj ett filteralternativ:");
             Console.WriteLine("1. Genre");
@@ -244,13 +257,13 @@ namespace BibliotekApp
                 case "1":
                     Console.WriteLine("Ange genre: ");
                     string genre = Console.ReadLine();
-                    resultat = bibliotek.ListAllaBöcker().Where(b=>b.Genre.Equals(genre, StringComparison.OrdinalIgnoreCase)).ToList();
+                    resultat = bibliotek.ListAllaBöcker().Where(b => b.Genre.Equals(genre, StringComparison.OrdinalIgnoreCase)).ToList();
                     break;
                 case "2":
                     Console.WriteLine("Ange författarens namn: ");
                     string författare = Console.ReadLine();
                     resultat = bibliotek.ListAllaBöcker().Where(b => b.Genre.Equals(författare, StringComparison.OrdinalIgnoreCase)).ToList();
-                    break ;
+                    break;
                 case "3":
                     Console.WriteLine("Ange bokens publiceringsår: ");
                     if (int.TryParse(Console.ReadLine(), out int år))
@@ -280,7 +293,7 @@ namespace BibliotekApp
                     }
             }
         }
-        
+
     }
-    
+
 }
