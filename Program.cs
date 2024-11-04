@@ -128,7 +128,7 @@
             Console.WriteLine("Boken är nu tillagd!");
 
             //Visa det genomsnittliga betyget för boken
-            Console.WriteLine($"Genomsnittligt betyg för {nyBok.Titel} är nu: {nyBok.AverageRating: F1}");
+            Console.WriteLine($"Genomsnittligt betyg för {nyBok.Titel} är nu: {nyBok.AverageRating:0.0}");
 
 
         }
