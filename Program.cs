@@ -6,8 +6,6 @@
         {
             Bibliotek bibliotek = new Bibliotek();
             MinLillaDb minLillaDb = new MinLillaDb();
-            string dataJsonfilPath = "LibraryData.Json";
-            string allaDataSomJsonType = File.ReadAllText(dataJsonfilPath);
 
             bool running = true;
             while (running)
@@ -16,7 +14,6 @@
 
                 string choice = Console.ReadLine();
                 Console.Clear();
-
                 switch (choice)
                 {
                     case "1":
@@ -51,7 +48,6 @@
                     default:
                         Console.WriteLine("Ogiltigt val, försök igen.");
                         break;
-
                 }
                 if (running)
                 {
@@ -60,7 +56,6 @@
                 }
             }
         }
-
         private static void VisaHuvudMeny()
         {
             Console.Clear();
@@ -88,55 +83,45 @@
             Console.Write("Ange vilket land författaren kommer ifrån: ");
             string författarLand = Console.ReadLine();
 
-            // Skapa författare objekt
-            Författare nyFörfattare = new Författare
+            Författare nyFörfattare = new Författare    // Skapa författare objekt
             {
                 Id = bibliotek.ListAllaFörfattare().Count + 1,
                 Namn = författareNamn,
                 Land = författarLand
             };
 
-            // Lägg till författaren i biblioteket
-            bibliotek.AddFörfattare(nyFörfattare);
-
+            bibliotek.AddFörfattare(nyFörfattare); // Lägg till författaren i biblioteket
             Console.Write("Ange bokens genre: ");
             string genre = Console.ReadLine();
-
             Console.Write("Ange bokens publiceringsår: ");
             int år = int.Parse(Console.ReadLine());
-
             Console.Write("Ange bokens ISBN: ");
             string isbn = Console.ReadLine();
-
             Console.WriteLine("Betygsätt boken mellan 1-5");
             int initialRating;
+
             while (!int.TryParse(Console.ReadLine(), out initialRating) || initialRating < 1 || initialRating > 5)
             {
-                Console.WriteLine("Ogiltigt betyg, angel ett tal mellan 1-5");
+                Console.WriteLine("Ogiltigt betyg, ange ett tal mellan 1-5");
             }
-
-                Bok nyBok = new Bok
+            Bok nyBok = new Bok
             {
                 Titel = titel,
                 Författare = författareNamn,
                 Genre = genre,
                 Publiceringsår = år,
                 Isbn = isbn,
-                Recensioner = new List<int> {initialRating}
+                Recensioner = new List<int> { initialRating }
             };
             bibliotek.AddBok(nyBok);
             Console.WriteLine("Boken är nu tillagd!");
-
-            //Visa det genomsnittliga betyget för boken
-            Console.WriteLine($"Genomsnittligt betyg för {nyBok.Titel} är nu: {nyBok.AverageRating}");
-
-
+            Console.WriteLine($"Genomsnittligt betyg för {nyBok.Titel} är nu: {nyBok.AverageRating}");//Visa det genomsnittliga betyget för boken
         }
+
         static void AddFörfattare(Bibliotek bibliotek)
         {
             Console.WriteLine("Ange författarens namn: ");
             string namn = Console.ReadLine();
-
             Console.WriteLine("Ange vilket land författaren kommer ifrån: ");
             string land = Console.ReadLine();
 
@@ -145,22 +130,21 @@
                 Namn = namn,
                 Land = land,
             };
-
             bibliotek.AddFörfattare(nyFörfattare);
             Console.WriteLine("Författare har lagts till!");
         }
+
         static void UpdateBok(Bibliotek bibliotek)
         {
             Console.WriteLine("Ange bokens Id som du vill ska uppdateras");
             int bokId = int.Parse(Console.ReadLine());
             Console.WriteLine("Ange ny titel");
             string nyTitel = Console.ReadLine();
-
-            // Skapa en ny bok med uppdaterade detaljer
-            Bok nyBok = new Bok { Titel = nyTitel };
+            Bok nyBok = new Bok { Titel = nyTitel };   // Skapa en ny bok med uppdaterade detaljer
             bibliotek.UpdateBok(bokId, nyBok);
             Console.WriteLine("Boken har uppdaterats!");
         }
+
         static void UpdateFörfattare(Bibliotek bibliotek)
         {
             Console.Write("Ange ID för författaren som ska uppdateras: ");
@@ -170,25 +154,20 @@
             {
                 Console.Write("Ogiltig inmatning. Ange ett giltigt ID: ");
             }
-
-            // Hämta den författare som ska uppdateras
-            var författare = bibliotek.Författare.FirstOrDefault(f => f.Id == författarId);
+            var författare = bibliotek.Författare.FirstOrDefault(f => f.Id == författarId); // Hämta den författare som ska uppdateras
 
             if (författare == null)
             {
                 Console.WriteLine("Författaren med det angivna ID:t hittades inte.");
                 return;
             }
-
-            // Frågar efter nya detaljer
-            Console.Write("Ange nytt namn för författaren ------- : ");
+            Console.Write("Ange nytt namn för författaren ------- : ");  // Frågar efter nya detaljer
             string nyttNamn = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(nyttNamn))
             {
                 författare.Namn = nyttNamn;
             }
-
             Console.Write("Ange nytt land för författaren -------- : ");
             string nyttLand = Console.ReadLine();
 
@@ -213,10 +192,10 @@
                 Console.WriteLine("Boken med det angivna Id:t hittades inte!");
                 return;
             }
-            //Ta bort boken 
-            bibliotek.RemoveBok(bokId);
+            bibliotek.RemoveBok(bokId);//Ta bort boken 
             Console.WriteLine("Boken har tagits bort");
         }
+
         static void RemoveFörfattare(Bibliotek bibliotek)
         {
             Console.WriteLine("Ange Id för den författare som ska raderas: ");
@@ -231,10 +210,10 @@
                 Console.WriteLine("Författaren med det angivna Id:t hittades inte.");
                 return;
             }
-            // Ta bort författaren
-            bibliotek.RemoveFörfattare(författarId);
+            bibliotek.RemoveFörfattare(författarId); // Ta bort författaren
             Console.WriteLine("Författaren har tagits bort.");
         }
+
         static void ListaAlla(Bibliotek bibliotek)
         {
             bibliotek.ListaAllaBöckerOchFörfattare();
@@ -243,13 +222,8 @@
         }
         static void SökOchFiltreraBöcker(Bibliotek bibliotek)
         {
-            Console.WriteLine("Välj ett filteralternativ:");
-            Console.WriteLine("1. Genre");
-            Console.WriteLine("2. Författare");
-            Console.WriteLine("3. Publiceringsår");
-            Console.Write("Ange ditt val: ");
+            BokMeny();
             string val = Console.ReadLine();
-
             List<Bok> resultat = null;
 
             switch (val)
@@ -293,7 +267,14 @@
                     }
             }
         }
-
+        private static void BokMeny()
+        {
+            Console.WriteLine("Välj ett filteralternativ:");
+            Console.WriteLine("1. Genre");
+            Console.WriteLine("2. Författare");
+            Console.WriteLine("3. Publiceringsår");
+            Console.Write("Ange ditt val: ");
+        }
     }
 
 }

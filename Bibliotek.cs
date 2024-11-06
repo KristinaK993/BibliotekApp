@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
-using BibliotekApp;
-
-
-namespace BibliotekApp
+﻿namespace BibliotekApp
 {
     public class Bibliotek
     {
-        public List<Bok> Böcker { get; set; } 
+        public List<Bok> Böcker { get; set; }
         public List<Författare> Författare { get; set; }
         private MinLillaDb minLillaDb;
 
@@ -85,4 +77,3 @@ namespace BibliotekApp
 
     }
 }
- 
