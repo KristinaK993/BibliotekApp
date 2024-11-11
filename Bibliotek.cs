@@ -75,5 +75,29 @@
         public List<Bok> ListAllaBöcker() => Böcker;
         public List<Författare> ListAllaFörfattare() => Författare;
 
+        public void VisaHuvudMeny()
+        {
+            Console.Clear();
+            Console.WriteLine("---- Bibliotekshantering ----");
+            Console.WriteLine("1. Lägg till ny bok");
+            Console.WriteLine("2. Lägg till ny författare");
+            Console.WriteLine("3. Uppdatera bokdetaljer");
+            Console.WriteLine("4. Uppdatera författardetaljer");
+            Console.WriteLine("5. Ta bort bok");
+            Console.WriteLine("6. Ta bort författare");
+            Console.WriteLine("7. Lista alla böcker och författare");
+            Console.WriteLine("8. Sök och filtrera böcker");
+            Console.WriteLine("9. Avsluta och spara data");
+            Console.Write("Välj ett alternativ: ");
+        }
+        public static void BokMeny()
+        {
+            Console.WriteLine("Välj ett filteralternativ:");
+            Console.WriteLine("1. Genre");
+            Console.WriteLine("2. Författare");
+            Console.WriteLine("3. Publiceringsår");
+            Console.Write("Ange ditt val: ");
+        }
     }
+
 }

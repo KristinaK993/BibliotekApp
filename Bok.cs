@@ -2,7 +2,7 @@
 
 namespace BibliotekApp
 {
-    public class Bok
+    public class Bok : IIdentifiable
     {
         public int Id { get; set; }
         public string Titel { get; set; }
